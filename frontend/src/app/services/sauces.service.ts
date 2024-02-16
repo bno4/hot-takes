@@ -14,7 +14,7 @@ export class SaucesService {
 
   getSauces() {
     this.http
-      .get<Sauce[]>('https://hot-takes-production.up.railway.app/api/sauces')
+      .get<Sauce[]>('http://localhost:3000/api/sauces')
       .pipe(
         tap((sauces) => this.sauces$.next(sauces)),
         catchError((error) => {
