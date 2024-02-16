@@ -14,7 +14,7 @@ export class SaucesService {
 
   getSauces() {
     this.http
-      .get<Sauce[]>('http://localhost:3000/api/sauces')
+      .get<Sauce[]>('https://hot-takes-production.up.railway.app/api/sauces')
       .pipe(
         tap((sauces) => this.sauces$.next(sauces)),
         catchError((error) => {
@@ -27,14 +27,18 @@ export class SaucesService {
 
   getSauceById(id: string) {
     return this.http
-      .get<Sauce>('http://localhost:3000/api/sauces/' + id)
+      .get<Sauce>(
+        'https://hot-takes-production.up.railway.app/api/sauces/' + id
+      )
       .pipe(catchError((error) => throwError(error.error.message)));
   }
 
   likeSauce(id: string, like: boolean) {
     return this.http
       .post<{ message: string }>(
-        'http://localhost:3000/api/sauces/' + id + '/like',
+        'https://hot-takes-production.up.railway.app/api/sauces/' +
+          id +
+          '/like',
         { userId: this.auth.getUserId(), like: like ? 1 : 0 }
       )
       .pipe(
@@ -46,7 +50,9 @@ export class SaucesService {
   dislikeSauce(id: string, dislike: boolean) {
     return this.http
       .post<{ message: string }>(
-        'http://localhost:3000/api/sauces/' + id + '/like',
+        'https://hot-takes-production.up.railway.app/api/sauces/' +
+          id +
+          '/like',
         { userId: this.auth.getUserId(), like: dislike ? -1 : 0 }
       )
       .pipe(
@@ -60,7 +66,10 @@ export class SaucesService {
     formData.append('sauce', JSON.stringify(sauce));
     formData.append('image', image);
     return this.http
-      .post<{ message: string }>('http://localhost:3000/api/sauces', formData)
+      .post<{ message: string }>(
+        'https://hot-takes-production.up.railway.app/api/sauces',
+        formData
+      )
       .pipe(catchError((error) => throwError(error.error.message)));
   }
 
@@ -68,7 +77,7 @@ export class SaucesService {
     if (typeof image === 'string') {
       return this.http
         .put<{ message: string }>(
-          'http://localhost:3000/api/sauces/' + id,
+          'https://hot-takes-production.up.railway.app/api/sauces/' + id,
           sauce
         )
         .pipe(catchError((error) => throwError(error.error.message)));
@@ -78,7 +87,7 @@ export class SaucesService {
       formData.append('image', image);
       return this.http
         .put<{ message: string }>(
-          'http://localhost:3000/api/sauces/' + id,
+          'https://hot-takes-production.up.railway.app/api/sauces/' + id,
           formData
         )
         .pipe(catchError((error) => throwError(error.error.message)));
@@ -87,7 +96,9 @@ export class SaucesService {
 
   deleteSauce(id: string) {
     return this.http
-      .delete<{ message: string }>('http://localhost:3000/api/sauces/' + id)
+      .delete<{ message: string }>(
+        'https://hot-takes-production.up.railway.app/api/sauces/' + id
+      )
       .pipe(catchError((error) => throwError(error.error.message)));
   }
 }
