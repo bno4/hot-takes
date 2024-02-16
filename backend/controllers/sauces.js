@@ -24,10 +24,10 @@ exports.createSauce = (req, res, next) => {
   const sauce = new Sauce({
     ...sauceObject,
     userId: req.auth.userId,
-    // imageUrl: `${req.protocol}://${req.get("host")}/images/${
-    //   req.file.filename
-    // }`,
-    imageUrl: `${process.env.BASE_URL}/images/${req.file.filename}`,
+    imageUrl: `${req.protocol}://${req.get("host")}/images/${
+      req.file.filename
+    }`,
+    // imageUrl: `${process.env.BASE_URL}/images/${req.file.filename}`,
   });
 
   sauce
