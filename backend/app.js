@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const saucesRoutes = require("./routes/sauces");
 const userRoutes = require("./routes/user");
-// const helmet = require("helmet");
+const helmet = require("helmet");
 const app = express();
 
 // appel de la base de données MongoDB depuis models
@@ -12,7 +12,11 @@ require("./models/Database");
 
 app.use(express.json());
 // Helmet contre les attaques Cross-Site Scripting / XSS / Click Jacking
-// app.use(helmet());
+app.use(
+  helmet({
+    crossOriginEmbedderPolicy: false,
+  })
+);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
